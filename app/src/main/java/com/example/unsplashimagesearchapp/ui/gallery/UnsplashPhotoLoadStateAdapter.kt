@@ -8,7 +8,7 @@ import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.unsplashimagesearchapp.databinding.UnsplashPhotoLoadStateFooterBinding
 
-class UnsplashPhotoLoadStateAdapter(private val retry:() -> Unit) :
+class UnsplashPhotoLoadStateAdapter(private val retry: () -> Unit) :
     LoadStateAdapter<UnsplashPhotoLoadStateAdapter.LoadStateViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, loadState: LoadState): LoadStateViewHolder {
@@ -41,10 +41,6 @@ class UnsplashPhotoLoadStateAdapter(private val retry:() -> Unit) :
                 buttonRetry.isVisible = loadState !is LoadState.Loading
                 textViewError.isVisible = loadState !is LoadState.Loading
             }
-
         }
-
     }
-
-
 }

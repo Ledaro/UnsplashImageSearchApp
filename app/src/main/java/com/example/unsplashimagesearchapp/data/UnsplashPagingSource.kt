@@ -8,7 +8,7 @@ import java.io.IOException
 
 private const val UNSPLASH_START_PAGE_INDEX = 1
 
-class UnsplashPagingSource (
+class UnsplashPagingSource(
     private val unsplashApi: UnsplashApi,
     private val query: String
 ) : PagingSource<Int, UnsplashPhoto>() {

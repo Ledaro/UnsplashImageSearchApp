@@ -16,7 +16,7 @@ import com.bumptech.glide.request.target.Target
 import com.example.unsplashimagesearchapp.R
 import com.example.unsplashimagesearchapp.databinding.FragmentDetailsBinding
 
-class DetailsFragment: Fragment(R.layout.fragment_details) {
+class DetailsFragment : Fragment(R.layout.fragment_details) {
 
     private val args by navArgs<DetailsFragmentArgs>()
 
@@ -31,7 +31,7 @@ class DetailsFragment: Fragment(R.layout.fragment_details) {
             Glide.with(this@DetailsFragment)
                 .load(photo.urls.full)
                 .error(R.drawable.ic_error)
-                .listener(object: RequestListener<Drawable> {
+                .listener(object : RequestListener<Drawable> {
                     override fun onLoadFailed(
                         e: GlideException?,
                         model: Any?,
@@ -62,7 +62,7 @@ class DetailsFragment: Fragment(R.layout.fragment_details) {
 
             textViewDescription.text = photo.description
 
-            val uri =  Uri.parse(photo.user.attributionUrl)
+            val uri = Uri.parse(photo.user.attributionUrl)
             val intetnt = Intent(Intent.ACTION_VIEW, uri)
 
             textViewCreater.apply {

@@ -30,7 +30,7 @@ class UnsplashPhotoAdapter(private val listener: OnItemClickListener) :
 
     }
 
-   inner class PhotoViewHolder(private val binding: ItemUnsplashPhotoBinding) :
+    inner class PhotoViewHolder(private val binding: ItemUnsplashPhotoBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
@@ -38,7 +38,7 @@ class UnsplashPhotoAdapter(private val listener: OnItemClickListener) :
                 val position = bindingAdapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     val item = getItem(position)
-                    if (item != null){
+                    if (item != null) {
                         listener.onItemClick(item)
                     }
                 }
@@ -59,7 +59,7 @@ class UnsplashPhotoAdapter(private val listener: OnItemClickListener) :
         }
     }
 
-    interface OnItemClickListener{
+    interface OnItemClickListener {
         fun onItemClick(photo: UnsplashPhoto)
     }
 

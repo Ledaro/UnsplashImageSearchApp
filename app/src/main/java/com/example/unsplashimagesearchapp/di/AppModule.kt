@@ -20,6 +20,7 @@ object AppModule {
             .baseUrl(UnsplashApi.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+
     @Provides
     @Singleton
     fun provideUnsplashApi(retrofit: Retrofit): UnsplashApi =

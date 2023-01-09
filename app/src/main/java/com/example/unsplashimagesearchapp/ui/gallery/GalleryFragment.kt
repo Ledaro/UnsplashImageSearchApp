@@ -14,12 +14,20 @@ import com.example.unsplashimagesearchapp.R
 import com.example.unsplashimagesearchapp.data.UnsplashPhoto
 import com.example.unsplashimagesearchapp.databinding.FragmentGalleryBinding
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class GalleryFragment: Fragment(R.layout.fragment_gallery), UnsplashPhotoAdapter.OnItemClickListener {
-    private val viewModel by viewModels<GalleryViewModel>()
+class GalleryFragment : Fragment(R.layout.fragment_gallery),
+    UnsplashPhotoAdapter.OnItemClickListener {
     private var _binding: FragmentGalleryBinding? = null
     private val binding get() = _binding!!
+
+    @Inject
+    lateinit var galleryViewModelFactory: GalleryViewModel.GalleryViewModelFactory
+
+    private val viewModel: GalleryViewModel by viewModels {
+        GalleryViewModel.provideFactory(galleryViewModelFactory, this, arguments)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -31,8 +39,8 @@ class GalleryFragment: Fragment(R.layout.fragment_gallery), UnsplashPhotoAdapter
             recyclerView.setHasFixedSize(true)
             recyclerView.itemAnimator = null
             recyclerView.adapter = adapter.withLoadStateHeaderAndFooter(
-                header = UnsplashPhotoLoadStateAdapter {adapter.retry()},
-                footer = UnsplashPhotoLoadStateAdapter {adapter.retry()},
+                header = UnsplashPhotoLoadStateAdapter { adapter.retry() },
+                footer = UnsplashPhotoLoadStateAdapter { adapter.retry() },
             )
             buttonRetry.setOnClickListener {
                 adapter.retry()
@@ -51,8 +59,9 @@ class GalleryFragment: Fragment(R.layout.fragment_gallery), UnsplashPhotoAdapter
                 textViewError.isVisible = loadState.source.refresh is LoadState.Error
 
                 if (loadState.source.refresh is LoadState.NotLoading &&
-                        loadState.append.endOfPaginationReached &&
-                        adapter.itemCount < 1){
+                    loadState.append.endOfPaginationReached &&
+                    adapter.itemCount < 1
+                ) {
                     recyclerView.isVisible = false
                     textViewEmpty.isVisible = true
                 } else {
@@ -77,7 +86,7 @@ class GalleryFragment: Fragment(R.layout.fragment_gallery), UnsplashPhotoAdapter
         val searchItem = menu.findItem(R.id.action_search)
         val searchView = searchItem.actionView as SearchView
 
-        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
 
                 if (query != null) {
