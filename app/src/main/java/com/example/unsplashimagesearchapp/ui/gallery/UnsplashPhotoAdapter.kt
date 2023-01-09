@@ -1,7 +1,10 @@
 package com.example.unsplashimagesearchapp.ui.gallery
 
+import android.animation.ObjectAnimator
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -33,6 +36,8 @@ class UnsplashPhotoAdapter(private val listener: OnItemClickListener) :
     inner class PhotoViewHolder(private val binding: ItemUnsplashPhotoBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+        private var isFilled = false
+
         init {
             binding.root.setOnClickListener {
                 val position = bindingAdapterPosition
@@ -42,6 +47,10 @@ class UnsplashPhotoAdapter(private val listener: OnItemClickListener) :
                         listener.onItemClick(item)
                     }
                 }
+            }
+
+            binding.imageViewFavourite.setOnClickListener {
+                animateFavouriteClick()
             }
         }
 
@@ -55,6 +64,30 @@ class UnsplashPhotoAdapter(private val listener: OnItemClickListener) :
                     .into(imageView)
 
                 textViewUserName.text = photo.user.username
+            }
+        }
+
+        private fun animateFavouriteClick() {
+            val position = bindingAdapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+                val item = getItem(position)
+                if (item != null) {
+                    isFilled = !isFilled
+                    if (isFilled) {
+                        binding.imageViewFavourite.setImageResource(R.drawable.ic_heart_filled)
+                    } else {
+                        binding.imageViewFavourite.setImageResource(R.drawable.ic_heart_outline)
+                    }
+                    val animator =
+                        ObjectAnimator.ofArgb(
+                            binding.imageViewFavourite,
+                            "colorFilter",
+                            Color.WHITE,
+                            Color.WHITE
+                        )
+                    animator.duration = 500
+                    animator.start()
+                }
             }
         }
     }
