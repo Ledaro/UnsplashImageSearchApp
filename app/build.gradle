@@ -4,6 +4,7 @@ plugins {
     id 'com.google.dagger.hilt.android'
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs'
 }
 
 android {
@@ -28,7 +29,7 @@ android {
         }
     }
 
-    buildFeatures{
+    buildFeatures {
         viewBinding true
     }
 
@@ -42,6 +43,20 @@ android {
 }
 
 dependencies {
+    def ktx_version = "1.7.0"
+    def appcompat_version = "1.5.1"
+    def material_version = "1.7.0"
+    def constraintLayout_version = "2.1.4"
+    def junit_version = "4.13.2"
+    def test_junit_version = "1.1.5"
+    def test_espresso_version = "3.5.1"
+    def lifecycle_version = "2.5.1"
+    def nav_version = "2.5.3"
+    def hilt_version = "2.44"
+    def retrofit_version = "2.9.0"
+    def glide_version = "4.14.2"
+    def paging_version = "3.1.1"
+
     implementation "androidx.core:core-ktx:$ktx_version"
     implementation "androidx.appcompat:appcompat:$appcompat_version"
     implementation "com.google.android.material:material:$material_version"
@@ -56,6 +71,7 @@ dependencies {
     //Navigation Components
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+//    implementation "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
 
     //Dagger Hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
