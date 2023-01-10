@@ -10,6 +10,7 @@ data class UnsplashPhoto(
     val description: String?,
     val urls: UnsplashPhotoUrls,
     val user: UnsplashUser,
+    val liked_by_user: Boolean
 ) : Parcelable {
     @Parcelize
     data class UnsplashPhotoUrls(

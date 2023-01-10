@@ -4,10 +4,13 @@ import android.os.Bundle
 import androidx.lifecycle.*
 import androidx.paging.cachedIn
 import androidx.savedstate.SavedStateRegistryOwner
+import com.example.unsplashimagesearchapp.data.UnsplashPhoto
 import com.example.unsplashimagesearchapp.data.UnsplashRepository
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import kotlinx.coroutines.launch
+import retrofit2.Response
 
 class GalleryViewModel @AssistedInject constructor(
     private val unsplashRepository: UnsplashRepository,
@@ -41,6 +44,7 @@ class GalleryViewModel @AssistedInject constructor(
     }
 
     private val currentQuery = state.getLiveData(CURRENT_QUERY, DEFAULT_QUERY)
+    val myResponse:MutableLiveData<Response<Void>> = MutableLiveData()
 
     val photos = currentQuery.switchMap { queryString ->
         unsplashRepository.getSearchResults(queryString).cachedIn(viewModelScope)
@@ -48,5 +52,11 @@ class GalleryViewModel @AssistedInject constructor(
 
     fun searchPhotos(query: String) {
         currentQuery.value = query
+    }
+
+    fun likePhoto(id: String){
+        viewModelScope.launch {
+            myResponse.value = unsplashRepository.likePhoto(id)
+        }
     }
 }

@@ -1,19 +1,23 @@
 package com.example.unsplashimagesearchapp.ui.gallery
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.example.unsplashimagesearchapp.R
 import com.example.unsplashimagesearchapp.data.UnsplashPhoto
 import com.example.unsplashimagesearchapp.databinding.FragmentGalleryBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -76,6 +80,19 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
     override fun onItemClick(photo: UnsplashPhoto) {
         val action = GalleryFragmentDirections.actionGalleryFragmentToDetailsFragment(photo)
         findNavController().navigate(action)
+    }
+
+    override fun onFavouriteClick(photoId: String) {
+        viewModel.likePhoto(photoId)
+
+        viewModel.myResponse.observe(viewLifecycleOwner) { response ->
+            if (response.isSuccessful) {
+                Toast.makeText(context, "You've liked photo!", Toast.LENGTH_SHORT).show()
+
+            } else {
+                Toast.makeText(context, "Ups, something went wrong :(", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

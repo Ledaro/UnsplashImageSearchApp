@@ -50,7 +50,14 @@ class UnsplashPhotoAdapter(private val listener: OnItemClickListener) :
             }
 
             binding.imageViewFavourite.setOnClickListener {
-                animateFavouriteClick()
+                val position = bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val item = getItem(position)
+                    if (item != null) {
+                        animateFavouriteClick()
+                        listener.onFavouriteClick(item.id)
+                    }
+                }
             }
         }
 
@@ -64,10 +71,16 @@ class UnsplashPhotoAdapter(private val listener: OnItemClickListener) :
                     .into(imageView)
 
                 textViewUserName.text = photo.user.username
+
+                if (photo.liked_by_user) {
+                    imageViewFavourite.setImageResource(R.drawable.ic_heart_filled)
+                } else {
+                    binding.imageViewFavourite.setImageResource(R.drawable.ic_heart_outline)
+                }
             }
         }
 
-        private fun animateFavouriteClick() {
+        fun animateFavouriteClick() {
             val position = bindingAdapterPosition
             if (position != RecyclerView.NO_POSITION) {
                 val item = getItem(position)
@@ -94,6 +107,7 @@ class UnsplashPhotoAdapter(private val listener: OnItemClickListener) :
 
     interface OnItemClickListener {
         fun onItemClick(photo: UnsplashPhoto)
+        fun onFavouriteClick(photoId: String)
     }
 
     companion object {
