@@ -82,15 +82,30 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
         findNavController().navigate(action)
     }
 
-    override fun onFavouriteClick(photoId: String) {
-        viewModel.likePhoto(photoId)
+    override fun onFavouriteClick(photoId: String, isFilled: Boolean) {
+        if (isFilled) {
+            viewModel.likePhoto(photoId)
 
-        viewModel.myResponse.observe(viewLifecycleOwner) { response ->
-            if (response.isSuccessful) {
-                Toast.makeText(context, "You've liked photo!", Toast.LENGTH_SHORT).show()
+            viewModel.likePhotoResponse.observe(viewLifecycleOwner) { response ->
+                if (response.isSuccessful) {
+                    Toast.makeText(context, "You've liked photo!", Toast.LENGTH_SHORT).show()
 
-            } else {
-                Toast.makeText(context, "Ups, something went wrong :(", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(context, "Ups, something went wrong :(", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+        } else {
+            viewModel.unlikePhoto(photoId)
+
+            viewModel.unlikePhotoResponse.observe(viewLifecycleOwner) { response ->
+                if (response.isSuccessful) {
+                    Toast.makeText(context, "You've unliked photo!", Toast.LENGTH_SHORT).show()
+
+                } else {
+                    Toast.makeText(context, "Ups, something went wrong :(", Toast.LENGTH_SHORT)
+                        .show()
+                }
             }
         }
     }

@@ -55,7 +55,7 @@ class UnsplashPhotoAdapter(private val listener: OnItemClickListener) :
                     val item = getItem(position)
                     if (item != null) {
                         animateFavouriteClick()
-                        listener.onFavouriteClick(item.id)
+                        listener.onFavouriteClick(item.id, isFilled)
                     }
                 }
             }
@@ -74,13 +74,17 @@ class UnsplashPhotoAdapter(private val listener: OnItemClickListener) :
 
                 if (photo.liked_by_user) {
                     imageViewFavourite.setImageResource(R.drawable.ic_heart_filled)
+                    isFilled = true
+
                 } else {
                     binding.imageViewFavourite.setImageResource(R.drawable.ic_heart_outline)
+                    isFilled = false
+
                 }
             }
         }
 
-        fun animateFavouriteClick() {
+        private fun animateFavouriteClick() {
             val position = bindingAdapterPosition
             if (position != RecyclerView.NO_POSITION) {
                 val item = getItem(position)
@@ -88,8 +92,10 @@ class UnsplashPhotoAdapter(private val listener: OnItemClickListener) :
                     isFilled = !isFilled
                     if (isFilled) {
                         binding.imageViewFavourite.setImageResource(R.drawable.ic_heart_filled)
+                        isFilled = true
                     } else {
                         binding.imageViewFavourite.setImageResource(R.drawable.ic_heart_outline)
+                        isFilled = false
                     }
                     val animator =
                         ObjectAnimator.ofArgb(
@@ -107,7 +113,7 @@ class UnsplashPhotoAdapter(private val listener: OnItemClickListener) :
 
     interface OnItemClickListener {
         fun onItemClick(photo: UnsplashPhoto)
-        fun onFavouriteClick(photoId: String)
+        fun onFavouriteClick(photoId: String, isFilled: Boolean)
     }
 
     companion object {

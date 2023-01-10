@@ -35,4 +35,10 @@ interface UnsplashApi {
     suspend fun likePhoto(
         @Path("id") id: String
     ): Response<Void>
+
+    @Headers("Accept-Version: v1", "Authorization: Bearer $BEARER_TOKEN")
+    @DELETE("photos/{id}/like")
+    suspend fun unlikePhoto(
+        @Path("id") id: String
+    ): Response<Void>
 }

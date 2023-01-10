@@ -44,7 +44,8 @@ class GalleryViewModel @AssistedInject constructor(
     }
 
     private val currentQuery = state.getLiveData(CURRENT_QUERY, DEFAULT_QUERY)
-    val myResponse:MutableLiveData<Response<Void>> = MutableLiveData()
+    val likePhotoResponse:MutableLiveData<Response<Void>> = MutableLiveData()
+    val unlikePhotoResponse:MutableLiveData<Response<Void>> = MutableLiveData()
 
     val photos = currentQuery.switchMap { queryString ->
         unsplashRepository.getSearchResults(queryString).cachedIn(viewModelScope)
@@ -56,7 +57,13 @@ class GalleryViewModel @AssistedInject constructor(
 
     fun likePhoto(id: String){
         viewModelScope.launch {
-            myResponse.value = unsplashRepository.likePhoto(id)
+            likePhotoResponse.value = unsplashRepository.likePhoto(id)
+        }
+    }
+
+    fun unlikePhoto(id: String){
+        viewModelScope.launch {
+            unlikePhotoResponse.value = unsplashRepository.unlikePhoto(id)
         }
     }
 }
