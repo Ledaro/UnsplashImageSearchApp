@@ -44,6 +44,7 @@ android {
 }
 
 dependencies {
+
     def ktx_version = "1.7.0"
     def appcompat_version = "1.5.1"
     def material_version = "1.7.0"
@@ -57,6 +58,7 @@ dependencies {
     def retrofit_version = "2.9.0"
     def glide_version = "4.14.2"
     def paging_version = "3.1.1"
+    def swipe_refresh_version = "1.1.0"
 
     implementation "androidx.core:core-ktx:$ktx_version"
     implementation "androidx.appcompat:appcompat:$appcompat_version"
@@ -72,7 +74,6 @@ dependencies {
     //Navigation Components
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
-//    implementation "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
 
     //Dagger Hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
@@ -87,6 +88,9 @@ dependencies {
 
     //Paging
     implementation "androidx.paging:paging-runtime:$paging_version"
+
+    //SwipeRefreshLayout
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swipe_refresh_version"
 
 }
 

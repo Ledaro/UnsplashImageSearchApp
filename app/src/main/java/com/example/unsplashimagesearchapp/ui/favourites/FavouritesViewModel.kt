@@ -45,5 +45,7 @@ class FavouritesViewModel @AssistedInject constructor(
         unsplashRepository.getLikedPhotosSearchResults(user).cachedIn(viewModelScope)
     }
 
-    val test = likedPhotos
+    fun searchLikedPhotos(query: String) {
+        currentUser.value = query
+    }
 }

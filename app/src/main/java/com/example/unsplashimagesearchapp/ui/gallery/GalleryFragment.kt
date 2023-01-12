@@ -25,6 +25,7 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
     UnsplashPhotoAdapter.OnItemClickListener {
     private var _binding: FragmentGalleryBinding? = null
     private val binding get() = _binding!!
+    private var queryForRefresh: String = "dogs"
 
     @Inject
     lateinit var galleryViewModelFactory: GalleryViewModel.GalleryViewModelFactory
@@ -48,6 +49,12 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
             )
             buttonRetry.setOnClickListener {
                 adapter.retry()
+            }
+
+            swiperefresh.setOnRefreshListener {
+                viewModel.searchPhotos(queryForRefresh)
+
+                swiperefresh.isRefreshing = false
             }
         }
 
@@ -124,6 +131,7 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
                 if (query != null) {
                     binding.recyclerView.scrollToPosition(0)
                     viewModel.searchPhotos(query)
+                    queryForRefresh = query
                     searchView.clearFocus()
                 }
                 return true

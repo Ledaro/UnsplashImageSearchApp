@@ -6,18 +6,19 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import com.example.unsplashimagesearchapp.R
 import com.example.unsplashimagesearchapp.data.UnsplashPhoto
 import com.example.unsplashimagesearchapp.databinding.FragmentFavouritesBinding
-import com.example.unsplashimagesearchapp.ui.gallery.GalleryFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class FavouritesFragment: Fragment(R.layout.fragment_favourites),
+class FavouritesFragment : Fragment(R.layout.fragment_favourites),
     FavouritesAdapter.OnItemClickListener {
     private var _binding: FragmentFavouritesBinding? = null
     private val binding get() = _binding!!
+    private val queryForRefresh: String = "ledaro"
 
     @Inject
     lateinit var favouriteViewModelFactory: FavouritesViewModel.FavouriteViewModelFactory
@@ -34,31 +35,38 @@ class FavouritesFragment: Fragment(R.layout.fragment_favourites),
 
         binding.apply {
             recyclerView.setHasFixedSize(true)
-            recyclerView.adapter = adapter
+            recyclerView.adapter = adapter.withLoadStateHeaderAndFooter(
+                header = FavouritesLoadStateAdapter {adapter.retry()},
+                footer = FavouritesLoadStateAdapter{adapter.retry()}
+            )
+
+            buttonRetry.setOnClickListener {
+                adapter.retry()
+            }
+
+            swiperefresh.setOnRefreshListener {
+                viewModel.searchLikedPhotos(queryForRefresh)
+
+                swiperefresh.isRefreshing = false
+            }
         }
 
         viewModel.likedPhotos.observe(viewLifecycleOwner) {
             adapter.submitData(viewLifecycleOwner.lifecycle, it)
         }
 
-/*        adapter.addLoadStateListener { loadState ->
+        adapter.addLoadStateListener { loadState ->
             binding.apply {
-*//*                progressBar.isVisible = loadState.source.refresh is LoadState.Loading
+                progressBar.isVisible = loadState.source.refresh is LoadState.Loading
                 recyclerView.isVisible = loadState.source.refresh is LoadState.NotLoading
                 buttonRetry.isVisible = loadState.source.refresh is LoadState.Error
-                textViewError.isVisible = loadState.source.refresh is LoadState.Error*//*
-                progressBar.isVisible = false
-                recyclerView.isVisible = true
-                buttonRetry.isVisible = false
-                textViewError.isVisible = false
+                textViewError.isVisible = loadState.source.refresh is LoadState.Error
             }
         }
+    }
 
-        setHasOptionsMenu(true)
-    }*/
-}
     override fun onItemClick(photo: UnsplashPhoto) {
-        val action = GalleryFragmentDirections.actionGalleryFragmentToDetailsFragment(photo)
+        val action = FavouritesFragmentDirections.actionFavouritesFragmentToDetailsFragment(photo)
         findNavController().navigate(action)
     }
 
