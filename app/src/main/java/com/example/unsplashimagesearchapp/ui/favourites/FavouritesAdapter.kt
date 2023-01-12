@@ -1,4 +1,4 @@
-package com.example.unsplashimagesearchapp.ui.gallery
+package com.example.unsplashimagesearchapp.ui.favourites
 
 import android.animation.ObjectAnimator
 import android.graphics.Color
@@ -13,17 +13,17 @@ import com.example.unsplashimagesearchapp.R
 import com.example.unsplashimagesearchapp.data.UnsplashPhoto
 import com.example.unsplashimagesearchapp.databinding.ItemUnsplashPhotoBinding
 
-class UnsplashPhotoAdapter(private val listener: OnItemClickListener) :
-    PagingDataAdapter<UnsplashPhoto, UnsplashPhotoAdapter.PhotoViewHolder>(PHOTO_COMPARATOR) {
+class FavouritesAdapter(private val listener: OnItemClickListener) :
+    PagingDataAdapter<UnsplashPhoto, FavouritesAdapter.LikedPhotoViewHolder>(PHOTO_COMPARATOR) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LikedPhotoViewHolder {
         val binding =
             ItemUnsplashPhotoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
-        return PhotoViewHolder(binding)
+        return LikedPhotoViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: LikedPhotoViewHolder, position: Int) {
         val currentItem = getItem(position)
 
         if (currentItem != null) {
@@ -32,7 +32,7 @@ class UnsplashPhotoAdapter(private val listener: OnItemClickListener) :
 
     }
 
-    inner class PhotoViewHolder(private val binding: ItemUnsplashPhotoBinding) :
+    inner class LikedPhotoViewHolder(private val binding: ItemUnsplashPhotoBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         private var isFilled = false

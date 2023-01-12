@@ -3,7 +3,6 @@ package com.example.unsplashimagesearchapp.data
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
-
 @Parcelize
 data class UnsplashPhoto(
     val id: String,
