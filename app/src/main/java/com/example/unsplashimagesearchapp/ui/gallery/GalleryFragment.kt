@@ -81,6 +81,7 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
             }
         }
 
+        viewModel.searchPhotos(queryForRefresh)
         setHasOptionsMenu(true)
     }
 
@@ -96,7 +97,6 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
             viewModel.likePhotoResponse.observe(viewLifecycleOwner) { response ->
                 if (response.isSuccessful) {
                     Toast.makeText(context, "You've liked photo!", Toast.LENGTH_SHORT).show()
-
                 } else {
                     Toast.makeText(context, "Ups, something went wrong :(", Toast.LENGTH_SHORT)
                         .show()
@@ -108,13 +108,17 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
             viewModel.unlikePhotoResponse.observe(viewLifecycleOwner) { response ->
                 if (response.isSuccessful) {
                     Toast.makeText(context, "You've unliked photo!", Toast.LENGTH_SHORT).show()
-
                 } else {
                     Toast.makeText(context, "Ups, something went wrong :(", Toast.LENGTH_SHORT)
                         .show()
                 }
             }
         }
+    }
+
+    override fun onProfileClick(photo: UnsplashPhoto) {
+        val action = GalleryFragmentDirections.actionGalleryFragmentToProfileFragment(photo)
+        findNavController().navigate(action)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

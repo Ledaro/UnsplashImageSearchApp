@@ -63,6 +63,8 @@ class FavouritesFragment : Fragment(R.layout.fragment_favourites),
                 textViewError.isVisible = loadState.source.refresh is LoadState.Error
             }
         }
+
+        viewModel.searchLikedPhotos(queryForRefresh)
     }
 
     override fun onItemClick(photo: UnsplashPhoto) {

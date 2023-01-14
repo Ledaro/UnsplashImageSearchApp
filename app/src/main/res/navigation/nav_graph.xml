@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_galleryFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_galleryFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
@@ -30,5 +33,13 @@
         <action
             android:id="@+id/action_favouritesFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.unsplashimagesearchapp.ui.profile.ProfileFragment"
+        android:label="ProfileFragment" >
+        <argument
+            android:name="photo"
+            app:argType="com.example.unsplashimagesearchapp.data.UnsplashPhoto" />
     </fragment>
 </navigation>

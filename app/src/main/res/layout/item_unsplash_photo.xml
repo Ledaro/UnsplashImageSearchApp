@@ -19,23 +19,39 @@
         android:padding="5dp"/>
 
     <View
+        android:id="@+id/view_footer"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_alignBottom="@id/image_view"
         android:background="@drawable/gradient" />
 
+    <ImageView
+        android:id="@+id/image_view_profile_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_alignTop="@id/view_footer"
+        android:layout_alignParentBottom="true"
+        tools:src="@drawable/ic_user" />
+
     <TextView
         android:id="@+id/text_view_user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignTop="@id/view_footer"
         android:layout_alignBottom="@id/image_view"
-        android:layout_margin="8dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_toEndOf="@id/image_view_profile_image"
         android:drawablePadding="3dp"
         android:ellipsize="end"
         android:gravity="center_vertical"
         android:maxLines="1"
         android:textColor="#FFF"
-        app:drawableStartCompat="@drawable/ic_user"
         tools:text="username" />
 
 </RelativeLayout>

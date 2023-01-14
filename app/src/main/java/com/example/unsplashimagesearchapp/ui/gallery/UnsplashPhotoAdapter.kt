@@ -35,7 +35,7 @@ class UnsplashPhotoAdapter(private val listener: OnItemClickListener) :
     inner class PhotoViewHolder(private val binding: ItemUnsplashPhotoBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        private var isFilled = false
+        private var isLiked = false
 
         init {
             binding.root.setOnClickListener {
@@ -54,7 +54,29 @@ class UnsplashPhotoAdapter(private val listener: OnItemClickListener) :
                     val item = getItem(position)
                     if (item != null) {
                         animateFavouriteClick()
-                        listener.onFavouriteClick(item.id, isFilled)
+                        listener.onFavouriteClick(item.id, isLiked)
+                    }
+                }
+            }
+
+            binding.imageViewProfileImage.setOnClickListener {
+                val position = bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val item = getItem(position)
+                    if (item != null) {
+                        animateFavouriteClick()
+                        listener.onProfileClick(item)
+                    }
+                }
+            }
+
+            binding.textViewUserName.setOnClickListener {
+                val position = bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val item = getItem(position)
+                    if (item != null) {
+                        animateFavouriteClick()
+                        listener.onProfileClick(item)
                     }
                 }
             }
@@ -69,15 +91,22 @@ class UnsplashPhotoAdapter(private val listener: OnItemClickListener) :
                     .error(R.drawable.ic_error)
                     .into(imageView)
 
+                Glide.with(imageViewProfileImage)
+                    .load(photo.user.profile_image.medium)
+                    .circleCrop()
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .error(R.drawable.ic_error)
+                    .into(imageViewProfileImage)
+
                 textViewUserName.text = photo.user.username
 
-                if (photo.liked_by_user) {
+                isLiked = if (photo.liked_by_user) {
                     imageViewFavourite.setImageResource(R.drawable.ic_heart_filled)
-                    isFilled = true
+                    true
 
                 } else {
                     binding.imageViewFavourite.setImageResource(R.drawable.ic_heart_outline)
-                    isFilled = false
+                    false
 
                 }
             }
@@ -88,13 +117,13 @@ class UnsplashPhotoAdapter(private val listener: OnItemClickListener) :
             if (position != RecyclerView.NO_POSITION) {
                 val item = getItem(position)
                 if (item != null) {
-                    isFilled = !isFilled
-                    if (isFilled) {
+                    isLiked = !isLiked
+                    isLiked = if (isLiked) {
                         binding.imageViewFavourite.setImageResource(R.drawable.ic_heart_filled)
-                        isFilled = true
+                        true
                     } else {
                         binding.imageViewFavourite.setImageResource(R.drawable.ic_heart_outline)
-                        isFilled = false
+                        false
                     }
                     val animator =
                         ObjectAnimator.ofArgb(
@@ -113,6 +142,7 @@ class UnsplashPhotoAdapter(private val listener: OnItemClickListener) :
     interface OnItemClickListener {
         fun onItemClick(photo: UnsplashPhoto)
         fun onFavouriteClick(photoId: String, isFilled: Boolean)
+        fun onProfileClick(photo: UnsplashPhoto)
     }
 
     companion object {

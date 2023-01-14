@@ -41,8 +41,6 @@ class FavouritesLoadStateAdapter(private val retry: () -> Unit) :
                 buttonRetry.isVisible = loadState !is LoadState.Loading
                 textViewError.isVisible = loadState !is LoadState.Loading
             }
-
         }
     }
-
 }

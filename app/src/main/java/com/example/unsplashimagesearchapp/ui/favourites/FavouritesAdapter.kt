@@ -29,7 +29,6 @@ class FavouritesAdapter(private val listener: OnItemClickListener) :
         if (currentItem != null) {
             holder.bind(currentItem)
         }
-
     }
 
     inner class LikedPhotoViewHolder(private val binding: ItemUnsplashPhotoBinding) :
@@ -71,14 +70,12 @@ class FavouritesAdapter(private val listener: OnItemClickListener) :
 
                 textViewUserName.text = photo.user.username
 
-                if (photo.liked_by_user) {
+                isFilled = if (photo.liked_by_user) {
                     imageViewFavourite.setImageResource(R.drawable.ic_heart_filled)
-                    isFilled = true
-
+                    true
                 } else {
                     binding.imageViewFavourite.setImageResource(R.drawable.ic_heart_outline)
-                    isFilled = false
-
+                    false
                 }
             }
         }
@@ -89,12 +86,12 @@ class FavouritesAdapter(private val listener: OnItemClickListener) :
                 val item = getItem(position)
                 if (item != null) {
                     isFilled = !isFilled
-                    if (isFilled) {
+                    isFilled = if (isFilled) {
                         binding.imageViewFavourite.setImageResource(R.drawable.ic_heart_filled)
-                        isFilled = true
+                        true
                     } else {
                         binding.imageViewFavourite.setImageResource(R.drawable.ic_heart_outline)
-                        isFilled = false
+                        false
                     }
                     val animator =
                         ObjectAnimator.ofArgb(

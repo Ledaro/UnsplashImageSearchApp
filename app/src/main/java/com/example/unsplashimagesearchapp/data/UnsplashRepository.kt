@@ -32,7 +32,7 @@ class UnsplashRepository @Inject constructor(private val unsplashApi: UnsplashAp
             pagingSourceFactory = { UnsplashLikedPhotosPagingSource(unsplashApi, username) }
         ).liveData
 
-     suspend fun likePhoto(photoId: String): Response<Void> {
+    suspend fun likePhoto(photoId: String): Response<Void> {
         return unsplashApi.likePhoto(photoId)
     }
 
