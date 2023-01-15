@@ -5,6 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.liveData
 import com.example.unsplashimagesearchapp.api.UnsplashApi
 import com.example.unsplashimagesearchapp.data.pagination.UnsplashLikedPhotosPagingSource
+import com.example.unsplashimagesearchapp.data.pagination.UnsplashProfilePhotosPagingSource
 import retrofit2.Response
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -15,17 +16,27 @@ class UnsplashRepository @Inject constructor(private val unsplashApi: UnsplashAp
     fun getSearchResults(query: String) =
         Pager(
             config = PagingConfig(
-                pageSize = 20,
+                pageSize = 30,
                 maxSize = 100,
                 enablePlaceholders = false
             ),
             pagingSourceFactory = { UnsplashPagingSource(unsplashApi, query) }
         ).liveData
 
+    fun getProfilePhotosResults(username: String) =
+        Pager(
+            config = PagingConfig(
+                pageSize = 30,
+                maxSize = 100,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = { UnsplashProfilePhotosPagingSource(unsplashApi, username) }
+        ).liveData
+
     fun getLikedPhotosSearchResults(username: String) =
         Pager(
             config = PagingConfig(
-                pageSize = 10,
+                pageSize = 30,
                 maxSize = 100,
                 enablePlaceholders = false
             ),

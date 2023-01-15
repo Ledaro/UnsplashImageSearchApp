@@ -25,21 +25,44 @@
         <argument
             android:name="photo"
             app:argType="com.example.unsplashimagesearchapp.data.UnsplashPhoto" />
+        <action
+            android:id="@+id/action_detailsFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/favouritesFragment"
         android:name="com.example.unsplashimagesearchapp.ui.favourites.FavouritesFragment"
-        android:label="Favourites" >
+        android:label="fragment_favourites"
+        tools:layout="@layout/fragment_favourites" >
         <action
             android:id="@+id/action_favouritesFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.unsplashimagesearchapp.ui.profile.ProfileFragment"
-        android:label="ProfileFragment" >
+        android:name="com.example.unsplashimagesearchapp.ui.profile.main.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
         <argument
             android:name="photo"
             app:argType="com.example.unsplashimagesearchapp.data.UnsplashPhoto" />
+    </fragment>
+    <fragment
+        android:id="@+id/profilePhotosFragment"
+        android:name="com.example.unsplashimagesearchapp.ui.profile.ProfilePhotosFragment"
+        android:label="fragment_profile_photos"
+        tools:layout="@layout/fragment_profile_photos" >
+        <action
+            android:id="@+id/action_profilePhotosFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileLikedPhotosFragment"
+        android:name="com.example.unsplashimagesearchapp.ui.profile.ProfileLikedPhotosFragment"
+        android:label="fragment_profile_liked_photos"
+        tools:layout="@layout/fragment_profile_liked_photos" >
+        <action
+            android:id="@+id/action_profileLikedPhotosFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
     </fragment>
 </navigation>

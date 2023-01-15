@@ -41,11 +41,11 @@ class FavouritesViewModel @AssistedInject constructor(
 
     private val currentUser = MutableLiveData(USER)
 
-    val likedPhotos = currentUser.switchMap { user ->
+/*    val likedPhotos = currentUser.switchMap { user ->
         unsplashRepository.getLikedPhotosSearchResults(user).cachedIn(viewModelScope)
-    }
+    }*/
 
-    fun searchLikedPhotos(query: String) {
-        currentUser.value = query
+    fun searchLikedPhotos(username: String) {
+        currentUser.value = username
     }
 }

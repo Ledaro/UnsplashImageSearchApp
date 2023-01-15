@@ -1,23 +1,23 @@
-package com.example.unsplashimagesearchapp.data
+package com.example.unsplashimagesearchapp.data.pagination
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.unsplashimagesearchapp.api.UnsplashApi
+import com.example.unsplashimagesearchapp.data.UnsplashPhoto
 import retrofit2.HttpException
 import java.io.IOException
 
 private const val UNSPLASH_START_PAGE_INDEX = 1
 
-class UnsplashPagingSource(
+class UnsplashProfilePhotosPagingSource(
     private val unsplashApi: UnsplashApi,
-    private val query: String
+    private val username: String,
 ) : PagingSource<Int, UnsplashPhoto>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, UnsplashPhoto> {
         val position = params.key ?: UNSPLASH_START_PAGE_INDEX
 
         return try {
-            val response = unsplashApi.searchPhotos(query, position, params.loadSize)
-            val photos = response.results
+            val photos = unsplashApi.searchProfilePhotos(username, position, params.loadSize)
 
             LoadResult.Page(
                 data = photos,

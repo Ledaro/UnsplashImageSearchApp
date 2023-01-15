@@ -81,7 +81,7 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
             }
         }
 
-        viewModel.searchPhotos(queryForRefresh)
+/*        viewModel.searchPhotos(queryForRefresh)*/
         setHasOptionsMenu(true)
     }
 
@@ -118,6 +118,8 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
 
     override fun onProfileClick(photo: UnsplashPhoto) {
         val action = GalleryFragmentDirections.actionGalleryFragmentToProfileFragment(photo)
+        val args = action.arguments
+        args?.putString("label", photo.user.username)
         findNavController().navigate(action)
     }
 

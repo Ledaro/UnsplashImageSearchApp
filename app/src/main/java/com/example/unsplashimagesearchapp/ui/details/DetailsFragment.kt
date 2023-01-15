@@ -7,14 +7,18 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.example.unsplashimagesearchapp.R
+import com.example.unsplashimagesearchapp.data.UnsplashPhoto
 import com.example.unsplashimagesearchapp.databinding.FragmentDetailsBinding
+import com.example.unsplashimagesearchapp.ui.favourites.FavouritesFragmentDirections
 
 class DetailsFragment : Fragment(R.layout.fragment_details) {
 
@@ -51,8 +55,15 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
                         isFirstResource: Boolean
                     ): Boolean {
                         progressBar.isVisible = false
-                        textViewCreater.isVisible = true
+                        textViewCreator.isVisible = true
                         textViewDescription.isVisible = photo.description != null
+
+                        Glide.with(this@DetailsFragment)
+                            .load(photo.user.profile_image.medium)
+                            .circleCrop()
+                            .transition(DrawableTransitionOptions.withCrossFade())
+                            .error(R.drawable.ic_error)
+                            .into(imageViewProfileImage)
 
                         return false
                     }
@@ -60,18 +71,25 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
                 })
                 .into(imageView)
 
-            textViewDescription.text = photo.description
+            textViewCreator.text = photo.user.username
 
-            val uri = Uri.parse(photo.user.attributionUrl)
-            val intetnt = Intent(Intent.ACTION_VIEW, uri)
+            if (photo.description.isNullOrEmpty()) {
+                textViewDescription.text = "No description"
 
-            textViewCreater.apply {
-                text = "Photo by ${photo.user.name}"
-                setOnClickListener {
-                    context.startActivity(intetnt)
-                }
-                paint.isUnderlineText = true
+            } else textViewDescription.text = photo.description
+
+            imageViewProfileImage.setOnClickListener {
+                onProfileClicked(photo)
+            }
+
+            textViewCreator.setOnClickListener {
+                onProfileClicked(photo)
             }
         }
+    }
+
+    private fun onProfileClicked(photo: UnsplashPhoto) {
+        val action = DetailsFragmentDirections.actionDetailsFragmentToProfileFragment(photo)
+        findNavController().navigate(action)
     }
 }

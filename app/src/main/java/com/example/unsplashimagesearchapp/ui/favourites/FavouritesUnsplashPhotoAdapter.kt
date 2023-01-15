@@ -13,8 +13,8 @@ import com.example.unsplashimagesearchapp.R
 import com.example.unsplashimagesearchapp.data.UnsplashPhoto
 import com.example.unsplashimagesearchapp.databinding.ItemUnsplashPhotoBinding
 
-class FavouritesAdapter(private val listener: OnItemClickListener) :
-    PagingDataAdapter<UnsplashPhoto, FavouritesAdapter.LikedPhotoViewHolder>(PHOTO_COMPARATOR) {
+class FavouritesUnsplashPhotoAdapter(private val listener: OnItemClickListener) :
+    PagingDataAdapter<UnsplashPhoto, FavouritesUnsplashPhotoAdapter.LikedPhotoViewHolder>(PHOTO_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LikedPhotoViewHolder {
         val binding =

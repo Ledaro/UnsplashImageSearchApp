@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class FavouritesFragment : Fragment(R.layout.fragment_favourites),
-    FavouritesAdapter.OnItemClickListener {
+    FavouritesUnsplashPhotoAdapter.OnItemClickListener {
     private var _binding: FragmentFavouritesBinding? = null
     private val binding get() = _binding!!
     private val queryForRefresh: String = "ledaro"
@@ -31,7 +31,7 @@ class FavouritesFragment : Fragment(R.layout.fragment_favourites),
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentFavouritesBinding.bind(view)
 
-        val adapter = FavouritesAdapter(this)
+        val adapter = FavouritesUnsplashPhotoAdapter(this)
 
         binding.apply {
             recyclerView.setHasFixedSize(true)
@@ -51,9 +51,9 @@ class FavouritesFragment : Fragment(R.layout.fragment_favourites),
             }
         }
 
-        viewModel.likedPhotos.observe(viewLifecycleOwner) {
+/*        viewModel.likedPhotos.observe(viewLifecycleOwner) {
             adapter.submitData(viewLifecycleOwner.lifecycle, it)
-        }
+        }*/
 
         adapter.addLoadStateListener { loadState ->
             binding.apply {
@@ -64,7 +64,7 @@ class FavouritesFragment : Fragment(R.layout.fragment_favourites),
             }
         }
 
-        viewModel.searchLikedPhotos(queryForRefresh)
+/*        viewModel.searchLikedPhotos(queryForRefresh)*/
     }
 
     override fun onItemClick(photo: UnsplashPhoto) {

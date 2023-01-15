@@ -2,7 +2,6 @@ package com.example.unsplashimagesearchapp.api
 
 import com.example.unsplashimagesearchapp.BuildConfig
 import com.example.unsplashimagesearchapp.data.UnsplashPhoto
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -31,6 +30,14 @@ interface UnsplashApi {
         @Query("page") page: Int,
         @Query("per_page") perPage: Int,
     ): UnsplashResponse
+
+    @Headers("Accept-Version: v1", "Authorization: Bearer $BEARER_TOKEN")
+    @GET("users/{username}/photos")
+    suspend fun searchProfilePhotos(
+        @Path("username") username: String,
+        @Query("page") page: Int,
+        @Query("per_page") perPage: Int,
+    ): List<UnsplashPhoto>
 
     @Headers("Accept-Version: v1", "Authorization: Bearer $BEARER_TOKEN")
     @GET("users/{username}/likes")
