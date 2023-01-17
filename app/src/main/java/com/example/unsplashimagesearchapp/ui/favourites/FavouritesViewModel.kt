@@ -14,14 +14,14 @@ class FavouritesViewModel @AssistedInject constructor(
     @Assisted state: SavedStateHandle
 ) : ViewModel() {
 
+    private val user: String = "ledaro"
+
     @AssistedFactory
     interface FavouriteViewModelFactory {
         fun create(handle: SavedStateHandle): FavouritesViewModel
     }
 
     companion object {
-        private const val USER = "ledaro"
-
         fun provideFactory(
             assistedFactory: FavouriteViewModelFactory,
             owner: SavedStateRegistryOwner,
@@ -29,7 +29,7 @@ class FavouritesViewModel @AssistedInject constructor(
         ): AbstractSavedStateViewModelFactory =
             object : AbstractSavedStateViewModelFactory(owner, defaultArgs) {
                 @Suppress("UNCHECKED_CAST")
-                override fun <T : ViewModel?> create(
+                override fun <T : ViewModel> create(
                     key: String,
                     modelClass: Class<T>,
                     handle: SavedStateHandle
@@ -39,13 +39,13 @@ class FavouritesViewModel @AssistedInject constructor(
             }
     }
 
-    private val currentUser = MutableLiveData(USER)
+    private val currentUser = MutableLiveData(user)
 
-/*    val likedPhotos = currentUser.switchMap { user ->
+    val likedPhotos = currentUser.switchMap { user ->
         unsplashRepository.getLikedPhotosSearchResults(user).cachedIn(viewModelScope)
-    }*/
+    }
 
-    fun searchLikedPhotos(username: String) {
-        currentUser.value = username
+    fun searchLikedPhotos() {
+        currentUser.value = user
     }
 }

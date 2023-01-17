@@ -3,11 +3,11 @@
     <item
         android:id="@+id/galleryFragment"
         android:enabled="true"
-        android:icon="@drawable/ic_home"
-        android:title="Home"/>
+        android:icon="@drawable/ic_gallery"
+        android:title="Gallery" />
     <item
         android:id="@+id/favouritesFragment"
         android:enabled="true"
         android:icon="@drawable/ic_heart_filled"
-        android:title="Favourites"/>
+        android:title="Favourites" />
 </menu>

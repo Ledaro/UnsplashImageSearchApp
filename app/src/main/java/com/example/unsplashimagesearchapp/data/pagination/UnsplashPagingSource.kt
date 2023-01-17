@@ -1,8 +1,9 @@
-package com.example.unsplashimagesearchapp.data
+package com.example.unsplashimagesearchapp.data.pagination
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.unsplashimagesearchapp.api.UnsplashApi
+import com.example.unsplashimagesearchapp.data.UnsplashPhoto
 import retrofit2.HttpException
 import java.io.IOException
 

@@ -3,7 +3,6 @@ package com.example.unsplashimagesearchapp.ui.gallery
 import android.os.Bundle
 import androidx.lifecycle.*
 import androidx.paging.cachedIn
-import androidx.paging.map
 import androidx.savedstate.SavedStateRegistryOwner
 import com.example.unsplashimagesearchapp.data.UnsplashRepository
 import dagger.assisted.Assisted
@@ -33,7 +32,7 @@ class GalleryViewModel @AssistedInject constructor(
         ): AbstractSavedStateViewModelFactory =
             object : AbstractSavedStateViewModelFactory(owner, defaultArgs) {
                 @Suppress("UNCHECKED_CAST")
-                override fun <T : ViewModel?> create(
+                override fun <T : ViewModel> create(
                     key: String,
                     modelClass: Class<T>,
                     handle: SavedStateHandle
@@ -44,8 +43,8 @@ class GalleryViewModel @AssistedInject constructor(
     }
 
     private val currentQuery = state.getLiveData(CURRENT_QUERY, DEFAULT_QUERY)
-    val likePhotoResponse: MutableLiveData<Response<Void>> = MutableLiveData()
-    val unlikePhotoResponse: MutableLiveData<Response<Void>> = MutableLiveData()
+    private val likePhotoResponse: MutableLiveData<Response<Void>> = MutableLiveData()
+    private val unlikePhotoResponse: MutableLiveData<Response<Void>> = MutableLiveData()
 
     val photos = currentQuery.switchMap { queryString ->
         unsplashRepository.getSearchResults(queryString).cachedIn(viewModelScope)

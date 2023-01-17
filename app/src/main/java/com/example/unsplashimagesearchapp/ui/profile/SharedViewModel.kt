@@ -28,7 +28,7 @@ class SharedViewModel @AssistedInject constructor(
         ): AbstractSavedStateViewModelFactory =
             object : AbstractSavedStateViewModelFactory(owner, defaultArgs) {
                 @Suppress("UNCHECKED_CAST")
-                override fun <T : ViewModel?> create(
+                override fun <T : ViewModel> create(
                     key: String,
                     modelClass: Class<T>,
                     handle: SavedStateHandle
@@ -51,5 +51,4 @@ class SharedViewModel @AssistedInject constructor(
     fun setProfile(username: String) {
         currentProfile.value = username
     }
-
 }

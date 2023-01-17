@@ -25,7 +25,6 @@ class UnsplashPhotoLoadStateAdapter(private val retry: () -> Unit) :
         holder.bind(loadState)
     }
 
-
     inner class LoadStateViewHolder(private val binding: UnsplashPhotoLoadStateFooterBinding) :
         RecyclerView.ViewHolder(binding.root) {
 

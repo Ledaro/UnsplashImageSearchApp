@@ -11,14 +11,18 @@ import com.example.unsplashimagesearchapp.R
 import com.example.unsplashimagesearchapp.data.UnsplashPhoto
 import com.example.unsplashimagesearchapp.databinding.ItemUnsplashPhotoLightBinding
 
-class ProfileUnsplashPhotoAdapter (private val listener: OnItemClickListener) :
-PagingDataAdapter<UnsplashPhoto, ProfileUnsplashPhotoAdapter.ProfilePhotoViewHolder>(
-    PHOTO_COMPARATOR
-) {
+class ProfileUnsplashPhotoAdapter(private val listener: OnItemClickListener) :
+    PagingDataAdapter<UnsplashPhoto, ProfileUnsplashPhotoAdapter.ProfilePhotoViewHolder>(
+        PHOTO_COMPARATOR
+    ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfilePhotoViewHolder {
         val binding =
-            ItemUnsplashPhotoLightBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemUnsplashPhotoLightBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
 
         return ProfilePhotoViewHolder(binding)
     }

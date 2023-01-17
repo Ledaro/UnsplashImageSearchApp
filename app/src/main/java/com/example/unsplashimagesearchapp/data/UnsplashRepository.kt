@@ -5,6 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.liveData
 import com.example.unsplashimagesearchapp.api.UnsplashApi
 import com.example.unsplashimagesearchapp.data.pagination.UnsplashLikedPhotosPagingSource
+import com.example.unsplashimagesearchapp.data.pagination.UnsplashPagingSource
 import com.example.unsplashimagesearchapp.data.pagination.UnsplashProfilePhotosPagingSource
 import retrofit2.Response
 import javax.inject.Inject

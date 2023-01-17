@@ -10,6 +10,7 @@ import androidx.paging.LoadState
 import com.example.unsplashimagesearchapp.R
 import com.example.unsplashimagesearchapp.data.UnsplashPhoto
 import com.example.unsplashimagesearchapp.databinding.FragmentProfilePhotosBinding
+import com.example.unsplashimagesearchapp.ui.profile.main.ProfileFragmentDirections
 import com.example.unsplashimagesearchapp.ui.profile.main.ProfileUnsplashPhotoAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -23,8 +24,8 @@ class ProfileLikedPhotosFragment : Fragment(R.layout.fragment_profile_liked_phot
     @Inject
     lateinit var sharedViewModelFactory: SharedViewModel.SharedViewModelFactory
 
-    private val viewModel: SharedViewModel by activityViewModels() {
-        SharedViewModel.provideFactory(sharedViewModelFactory,this,arguments)
+    private val viewModel: SharedViewModel by activityViewModels {
+        SharedViewModel.provideFactory(sharedViewModelFactory, this, arguments)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,8 +37,8 @@ class ProfileLikedPhotosFragment : Fragment(R.layout.fragment_profile_liked_phot
         binding.apply {
             recyclerView.setHasFixedSize(true)
             recyclerView.adapter = adapter.withLoadStateHeaderAndFooter(
-                header = ProfileLoadStateAdapter {adapter.retry()},
-                footer = ProfileLoadStateAdapter{adapter.retry()}
+                header = ProfileLoadStateAdapter { adapter.retry() },
+                footer = ProfileLoadStateAdapter { adapter.retry() }
             )
 
             buttonRetry.setOnClickListener {
@@ -60,7 +61,7 @@ class ProfileLikedPhotosFragment : Fragment(R.layout.fragment_profile_liked_phot
     }
 
     override fun onItemClick(photo: UnsplashPhoto) {
-        val action = ProfileLikedPhotosFragmentDirections.actionProfileLikedPhotosFragmentToDetailsFragment(photo)
+        val action = ProfileFragmentDirections.actionProfileFragmentToDetailsFragment(photo)
         findNavController().navigate(action)
     }
 

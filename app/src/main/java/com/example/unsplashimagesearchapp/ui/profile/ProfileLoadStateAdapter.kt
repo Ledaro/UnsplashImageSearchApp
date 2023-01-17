@@ -7,7 +7,6 @@ import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.unsplashimagesearchapp.databinding.UnsplashPhotoLoadStateFooterBinding
-import com.example.unsplashimagesearchapp.ui.favourites.FavouritesLoadStateAdapter
 
 class ProfileLoadStateAdapter(private val retry: () -> Unit) :
     LoadStateAdapter<ProfileLoadStateAdapter.LoadStateViewHolder>() {

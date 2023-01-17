@@ -14,7 +14,9 @@ import com.example.unsplashimagesearchapp.data.UnsplashPhoto
 import com.example.unsplashimagesearchapp.databinding.ItemUnsplashPhotoBinding
 
 class FavouritesUnsplashPhotoAdapter(private val listener: OnItemClickListener) :
-    PagingDataAdapter<UnsplashPhoto, FavouritesUnsplashPhotoAdapter.LikedPhotoViewHolder>(PHOTO_COMPARATOR) {
+    PagingDataAdapter<UnsplashPhoto, FavouritesUnsplashPhotoAdapter.LikedPhotoViewHolder>(
+        PHOTO_COMPARATOR
+    ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LikedPhotoViewHolder {
         val binding =
@@ -34,7 +36,7 @@ class FavouritesUnsplashPhotoAdapter(private val listener: OnItemClickListener) 
     inner class LikedPhotoViewHolder(private val binding: ItemUnsplashPhotoBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        private var isFilled = false
+        private var isLiked = false
 
         init {
             binding.root.setOnClickListener {
@@ -53,7 +55,29 @@ class FavouritesUnsplashPhotoAdapter(private val listener: OnItemClickListener) 
                     val item = getItem(position)
                     if (item != null) {
                         animateFavouriteClick()
-                        listener.onFavouriteClick(item.id, isFilled)
+                        listener.onFavouriteClick(item.id, isLiked)
+                    }
+                }
+            }
+
+            binding.imageViewProfileImage.setOnClickListener {
+                val position = bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val item = getItem(position)
+                    if (item != null) {
+                        animateFavouriteClick()
+                        listener.onProfileClick(item)
+                    }
+                }
+            }
+
+            binding.textViewUserName.setOnClickListener {
+                val position = bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val item = getItem(position)
+                    if (item != null) {
+                        animateFavouriteClick()
+                        listener.onProfileClick(item)
                     }
                 }
             }
@@ -68,14 +92,23 @@ class FavouritesUnsplashPhotoAdapter(private val listener: OnItemClickListener) 
                     .error(R.drawable.ic_error)
                     .into(imageView)
 
+                Glide.with(imageViewProfileImage)
+                    .load(photo.user.profile_image.medium)
+                    .circleCrop()
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .error(R.drawable.ic_error)
+                    .into(imageViewProfileImage)
+
                 textViewUserName.text = photo.user.username
 
-                isFilled = if (photo.liked_by_user) {
+                isLiked = if (photo.liked_by_user) {
                     imageViewFavourite.setImageResource(R.drawable.ic_heart_filled)
                     true
+
                 } else {
                     binding.imageViewFavourite.setImageResource(R.drawable.ic_heart_outline)
                     false
+
                 }
             }
         }
@@ -85,8 +118,8 @@ class FavouritesUnsplashPhotoAdapter(private val listener: OnItemClickListener) 
             if (position != RecyclerView.NO_POSITION) {
                 val item = getItem(position)
                 if (item != null) {
-                    isFilled = !isFilled
-                    isFilled = if (isFilled) {
+                    isLiked = !isLiked
+                    isLiked = if (isLiked) {
                         binding.imageViewFavourite.setImageResource(R.drawable.ic_heart_filled)
                         true
                     } else {
@@ -110,6 +143,7 @@ class FavouritesUnsplashPhotoAdapter(private val listener: OnItemClickListener) 
     interface OnItemClickListener {
         fun onItemClick(photo: UnsplashPhoto)
         fun onFavouriteClick(photoId: String, isFilled: Boolean)
+        fun onProfileClick(photo: UnsplashPhoto)
     }
 
     companion object {

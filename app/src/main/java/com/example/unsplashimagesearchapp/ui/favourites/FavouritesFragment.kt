@@ -10,6 +10,7 @@ import androidx.paging.LoadState
 import com.example.unsplashimagesearchapp.R
 import com.example.unsplashimagesearchapp.data.UnsplashPhoto
 import com.example.unsplashimagesearchapp.databinding.FragmentFavouritesBinding
+import com.example.unsplashimagesearchapp.ui.gallery.GalleryFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -18,7 +19,6 @@ class FavouritesFragment : Fragment(R.layout.fragment_favourites),
     FavouritesUnsplashPhotoAdapter.OnItemClickListener {
     private var _binding: FragmentFavouritesBinding? = null
     private val binding get() = _binding!!
-    private val queryForRefresh: String = "ledaro"
 
     @Inject
     lateinit var favouriteViewModelFactory: FavouritesViewModel.FavouriteViewModelFactory
@@ -36,8 +36,8 @@ class FavouritesFragment : Fragment(R.layout.fragment_favourites),
         binding.apply {
             recyclerView.setHasFixedSize(true)
             recyclerView.adapter = adapter.withLoadStateHeaderAndFooter(
-                header = FavouritesLoadStateAdapter {adapter.retry()},
-                footer = FavouritesLoadStateAdapter{adapter.retry()}
+                header = FavouritesLoadStateAdapter { adapter.retry() },
+                footer = FavouritesLoadStateAdapter { adapter.retry() }
             )
 
             buttonRetry.setOnClickListener {
@@ -45,15 +45,15 @@ class FavouritesFragment : Fragment(R.layout.fragment_favourites),
             }
 
             swiperefresh.setOnRefreshListener {
-                viewModel.searchLikedPhotos(queryForRefresh)
+                viewModel.searchLikedPhotos()
 
                 swiperefresh.isRefreshing = false
             }
         }
 
-/*        viewModel.likedPhotos.observe(viewLifecycleOwner) {
+        viewModel.likedPhotos.observe(viewLifecycleOwner) {
             adapter.submitData(viewLifecycleOwner.lifecycle, it)
-        }*/
+        }
 
         adapter.addLoadStateListener { loadState ->
             binding.apply {
@@ -64,7 +64,7 @@ class FavouritesFragment : Fragment(R.layout.fragment_favourites),
             }
         }
 
-/*        viewModel.searchLikedPhotos(queryForRefresh)*/
+        viewModel.searchLikedPhotos()
     }
 
     override fun onItemClick(photo: UnsplashPhoto) {
@@ -73,36 +73,15 @@ class FavouritesFragment : Fragment(R.layout.fragment_favourites),
     }
 
     override fun onFavouriteClick(photoId: String, isFilled: Boolean) {
-
+        TODO("Not yet implemented")
     }
 
-/*    override fun onFavouriteClick(photoId: String, isFilled: Boolean) {
-        if (isFilled) {
-            viewModel.likePhoto(photoId)
-
-            viewModel.likePhotoResponse.observe(viewLifecycleOwner) { response ->
-                if (response.isSuccessful) {
-                    Toast.makeText(context, "You've liked photo!", Toast.LENGTH_SHORT).show()
-
-                } else {
-                    Toast.makeText(context, "Ups, something went wrong :(", Toast.LENGTH_SHORT)
-                        .show()
-                }
-            }
-        } else {
-            viewModel.unlikePhoto(photoId)
-
-            viewModel.unlikePhotoResponse.observe(viewLifecycleOwner) { response ->
-                if (response.isSuccessful) {
-                    Toast.makeText(context, "You've unliked photo!", Toast.LENGTH_SHORT).show()
-
-                } else {
-                    Toast.makeText(context, "Ups, something went wrong :(", Toast.LENGTH_SHORT)
-                        .show()
-                }
-            }
-        }
-    }*/
+    override fun onProfileClick(photo: UnsplashPhoto) {
+        val action = FavouritesFragmentDirections.actionFavouritesFragmentToProfileFragment(photo)
+        val args = action.arguments
+        args.putString("label", photo.user.username)
+        findNavController().navigate(action)
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

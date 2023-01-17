@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.example.unsplashimagesearchapp.api
 
 import com.example.unsplashimagesearchapp.BuildConfig
@@ -13,8 +15,8 @@ interface UnsplashApi {
         const val BEARER_TOKEN = BuildConfig.UNSPLASH_BEARER_TOKEN
     }
 
-    //GET list of photos with public key
-/*    @Headers("Accept-Version: v1", "Authorization: Client-ID $CLIENT_ID")
+/*    //GET list of photos with public key
+    @Headers("Accept-Version: v1", "Authorization: Client-ID $CLIENT_ID")
     @GET("search/photos")
     suspend fun searchPhotos(
         @Query("query") query: String,

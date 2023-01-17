@@ -1,8 +1,6 @@
 package com.example.unsplashimagesearchapp.ui.details
 
-import android.content.Intent
 import android.graphics.drawable.Drawable
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
@@ -18,7 +16,6 @@ import com.bumptech.glide.request.target.Target
 import com.example.unsplashimagesearchapp.R
 import com.example.unsplashimagesearchapp.data.UnsplashPhoto
 import com.example.unsplashimagesearchapp.databinding.FragmentDetailsBinding
-import com.example.unsplashimagesearchapp.ui.favourites.FavouritesFragmentDirections
 
 class DetailsFragment : Fragment(R.layout.fragment_details) {
 
