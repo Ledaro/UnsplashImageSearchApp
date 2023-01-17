@@ -40,7 +40,7 @@ git clone https://github.com/Ledaro/UnsplashImageSearchApp.git
 This project is open to contributions. Feel free to submit pull requests with bug fixes or new features.
 
 #### What can be improved
-- Optimalize API calls due to Unsplash 50 call limits
+- Optimalize API calls due to Unsplash 50 calls per hour limit
 - Improve Animations
 - Add updating to Favourites adapter when user unlikes photo
 - Save UI state of adapters without calling and creating new ones
