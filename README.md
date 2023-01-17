@@ -31,7 +31,7 @@ This project is an example app and is not intended for production use.
 ## Installation
 1. Clone the repository
 ``` 
-git clone https://github.com/[username]/Unsplash-Image-Search-App.git
+git clone https://github.com/Ledaro/UnsplashImageSearchApp.git
 ```
 2. Open the project in Android Studio
 3. Build and run the app on an emulator or device
