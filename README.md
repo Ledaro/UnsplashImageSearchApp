@@ -18,8 +18,7 @@ This project is an example app and is not intended for production use.
 - View photo author profile inculiding their own photos and likes
 - Navigate between multiple fragments
 
-
-## Technologies used
+## Technologies and tools used
 - Kotlin
 - Retrofit
 - Dagger Hilt
