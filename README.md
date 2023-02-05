@@ -18,8 +18,7 @@ This project is an example app and is not intended for production use.
 - View photo author profile inculiding their own photos and likes
 - Navigate between multiple fragments
 
-
-## Technologies used
+## Technologies and tools used
 - Kotlin
 - Retrofit
 - Dagger Hilt
@@ -31,7 +30,7 @@ This project is an example app and is not intended for production use.
 ## Installation
 1. Clone the repository
 ``` 
-git clone https://github.com/[username]/Unsplash-Image-Search-App.git
+git clone https://github.com/Ledaro/UnsplashImageSearchApp.git
 ```
 2. Open the project in Android Studio
 3. Build and run the app on an emulator or device
@@ -40,7 +39,7 @@ git clone https://github.com/[username]/Unsplash-Image-Search-App.git
 This project is open to contributions. Feel free to submit pull requests with bug fixes or new features.
 
 #### What can be improved
-- Optimalize API calls due to Unsplash 50 call limits
+- Optimalize API calls due to Unsplash 50 calls per hour limit
 - Improve Animations
 - Add updating to Favourites adapter when user unlikes photo
 - Save UI state of adapters without calling and creating new ones
