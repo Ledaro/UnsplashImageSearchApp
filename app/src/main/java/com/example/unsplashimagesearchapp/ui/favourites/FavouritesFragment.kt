@@ -10,9 +10,7 @@ import androidx.paging.LoadState
 import com.example.unsplashimagesearchapp.R
 import com.example.unsplashimagesearchapp.data.UnsplashPhoto
 import com.example.unsplashimagesearchapp.databinding.FragmentFavouritesBinding
-import com.example.unsplashimagesearchapp.ui.gallery.GalleryFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class FavouritesFragment : Fragment(R.layout.fragment_favourites),
@@ -20,12 +18,7 @@ class FavouritesFragment : Fragment(R.layout.fragment_favourites),
     private var _binding: FragmentFavouritesBinding? = null
     private val binding get() = _binding!!
 
-    @Inject
-    lateinit var favouriteViewModelFactory: FavouritesViewModel.FavouriteViewModelFactory
-
-    private val viewModel: FavouritesViewModel by viewModels {
-        FavouritesViewModel.provideFactory(favouriteViewModelFactory, this, arguments)
-    }
+    private val viewModel: FavouritesViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

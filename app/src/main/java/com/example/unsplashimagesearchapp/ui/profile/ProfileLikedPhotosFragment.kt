@@ -13,7 +13,6 @@ import com.example.unsplashimagesearchapp.databinding.FragmentProfilePhotosBindi
 import com.example.unsplashimagesearchapp.ui.profile.main.ProfileFragmentDirections
 import com.example.unsplashimagesearchapp.ui.profile.main.ProfileUnsplashPhotoAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class ProfileLikedPhotosFragment : Fragment(R.layout.fragment_profile_liked_photos),
@@ -21,12 +20,7 @@ class ProfileLikedPhotosFragment : Fragment(R.layout.fragment_profile_liked_phot
     private var _binding: FragmentProfilePhotosBinding? = null
     private val binding get() = _binding!!
 
-    @Inject
-    lateinit var sharedViewModelFactory: SharedViewModel.SharedViewModelFactory
-
-    private val viewModel: SharedViewModel by activityViewModels {
-        SharedViewModel.provideFactory(sharedViewModelFactory, this, arguments)
-    }
+    private val viewModel: SharedViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

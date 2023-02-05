@@ -14,7 +14,6 @@ import com.example.unsplashimagesearchapp.R
 import com.example.unsplashimagesearchapp.data.UnsplashPhoto
 import com.example.unsplashimagesearchapp.databinding.FragmentGalleryBinding
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class GalleryFragment : Fragment(R.layout.fragment_gallery),
@@ -23,12 +22,7 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
     private val binding get() = _binding!!
     private var queryForRefresh: String = "dogs"
 
-    @Inject
-    lateinit var galleryViewModelFactory: GalleryViewModel.GalleryViewModelFactory
-
-    private val viewModel: GalleryViewModel by viewModels {
-        GalleryViewModel.provideFactory(galleryViewModelFactory, this, arguments)
-    }
+    private val viewModel: GalleryViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

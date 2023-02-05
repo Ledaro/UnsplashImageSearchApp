@@ -15,7 +15,6 @@ import com.example.unsplashimagesearchapp.databinding.FragmentProfileBinding
 import com.example.unsplashimagesearchapp.ui.profile.SharedViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
@@ -23,12 +22,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
 
-    @Inject
-    lateinit var sharedViewModelFactory: SharedViewModel.SharedViewModelFactory
-
-    private val viewModel: SharedViewModel by activityViewModels {
-        SharedViewModel.provideFactory(sharedViewModelFactory, this, arguments)
-    }
+    private val viewModel: SharedViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
